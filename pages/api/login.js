@@ -4,7 +4,7 @@ export default async function login(req, res) {
   try {
     await auth0.handleLogin(req, res, {
       redirectTo: process.env.VERCEL_URL
-        ? `https://${req["x-forwarded-host"]}`
+        ? req.headers.referer
         : `http://localhost:3000`,
     });
   } catch (error) {
