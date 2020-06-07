@@ -1,11 +1,10 @@
 import auth0 from "../../lib/auth0";
 
 export default async function login(req, res) {
+  console.log(req.headers.referer);
   try {
     await auth0.handleLogin(req, res, {
-      redirectTo: process.env.VERCEL_URL
-        ? req.headers.referer
-        : `http://localhost:3000`,
+      redirectTo: req.headers.referer + "api/callback",
     });
   } catch (error) {
     console.error(error);
