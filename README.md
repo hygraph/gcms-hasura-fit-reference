@@ -1,100 +1,18 @@
-# Next.js and Auth0 Example
+# GraphCMS, Next.js, Hasura and Auth0 Workout Tracker
 
-This example shows how you can use `@auth0/nextjs-auth` to easily add authentication support to your Next.js application.
+In this project we'll be using a number of tools, services and technologies. To handle our interface and connecting the services together, we'll be using [NextJs](https://nextjs.com) and deploy to [Vercel](https://vercel.com). We'll additionally use Vercel to host a serverless function for a webhook we'll need later.
 
-Read more: [https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/](https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/)
+Our project requires authentication, and so we'll use Auth0 to handle that for us. Auth0 has a well written starter for NextJs which we'll use as our starting point.
 
-### Using `create-next-app`
+For more more information about how all the auth pieces connect, you can find that [in this guide](https://github.com/vercel/next.js/tree/canary/examples/auth0) to configure the required environment variables for Auth0. In our project, you'll add those variables to env.local instead.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+The content is split between two domains of responsibility, the editorial influenced content (the workout programming, images, descriptions, etc) is maintained in [GraphCMS](https://graphcms.com) - a 100% GraphQL headless CMS. This allows us our content teams to iterate on our content in an elegant way.
 
-```bash
-npm init next-app --example auth0 auth0
-# or
-yarn create next-app --example auth0 auth0
-```
+The second domain is our user data and permision logic. That we will host in [Hasura](https://hasrua.io). The magic occurs when we add our GraphCMS API into Hasura's Remote Schema setting and use remote joins to connect the two together. This gives us a unified graph of our content and user data with authenticated controls in place!
 
-## Configuring Auth0
+## Running this Project Locally
+Because of the various moving parts, you won't be able to run this demo locally as it requires a number of services to be connected. We'll be posting a full tutorial series on recreating this project which we'll announce on Twitter (@GraphCMS) and update here when it ships.
 
-1. Go to the [Auth0 dashboard](https://manage.auth0.com/) and create a new application of type _Regular Web Applications_ and make sure to configure the following
-2. Go to the settings page of the application
-3. Configure the following settings:
+## The Demo
+Enjoy the Demo here: https://gcms-hasura-fit-reference.vercel.app
 
-- _Allowed Callback URLs_: Should be set to `http://localhost:3000/api/callback` when testing locally or typically to `https://myapp.com/api/callback` when deploying your application.
-- _Allowed Logout URLs_: Should be set to `http://localhost:3000/` when testing locally or typically to `https://myapp.com/` when deploying your application.
-
-4. Save the settings
-
-### Configuring Next.js
-
-In the Next.js configuration file (`next.config.js`) you'll see that different environment variables are being assigned.
-
-### Local Development
-
-For local development you'll want to create a `.env` file with the necessary settings.
-
-The required settings can be found on the Auth0 application's settings page:
-
-```
-AUTH0_DOMAIN=YOUR_AUTH0_DOMAIN
-AUTH0_CLIENT_ID=YOUR_AUTH0_CLIENT_ID
-AUTH0_CLIENT_SECRET=YOUR_AUTH0_CLIENT_SECRET
-
-SESSION_COOKIE_SECRET=viloxyf_z2GW6K4CT-KQD_MoLEA2wqv5jWuq4Jd0P7ymgG5GJGMpvMneXZzhK3sL (at least 32 characters, used to encrypt the cookie)
-
-REDIRECT_URI=http://localhost:3000/api/callback
-POST_LOGOUT_REDIRECT_URI=http://localhost:3000/
-```
-
-### Hosting on Vercel
-
-When deploying this example to Vercel you'll want to update the `now.json` configuration file.
-
-```json
-{
-  "build": {
-    "env": {
-      "AUTH0_DOMAIN": "YOUR_AUTH0_DOMAIN",
-      "AUTH0_CLIENT_ID": "YOUR_AUTH0_CLIENT_ID",
-      "AUTH0_CLIENT_SECRET": "@auth0_client_secret",
-      "REDIRECT_URI": "https://my-website.now.sh/api/callback",
-      "POST_LOGOUT_REDIRECT_URI": "https://my-website.now.sh/",
-      "SESSION_COOKIE_SECRET": "@session_cookie_secret",
-      "SESSION_COOKIE_LIFETIME": 7200
-    }
-  }
-}
-```
-
-- `AUTH0_DOMAIN` - Can be found in the Auth0 dashboard under `settings`.
-- `AUTH0_CLIENT_ID` - Can be found in the Auth0 dashboard under `settings`.
-- `AUTH0_CLIENT_SECRET` - Can be found in the Auth0 dashboard under `settings`.
-- `REDIRECT_URI` - The url where Auth0 redirects back to, make sure a consistent url is used here.
-- `POST_LOGOUT_REDIRECT_URI` - Where to redirect after logging out
-- `SESSION_COOKIE_SECRET` - A unique secret used to encrypt the cookies, has to be at least 32 characters. You can use [this generator](https://generate-secret.now.sh/32) to generate a value.
-- `SESSION_COOKIE_LIFETIME` - How long a session lasts in seconds. The default is 2 hours.
-
-The `@auth0_client_secret` and `@session_cookie_secret` are [Vercel environment secrets](https://vercel.com/docs/v2/environment-variables-and-secrets/)
-
-You can create the `@auth0_client_secret` by running:
-
-```
-now secrets add auth0_client_secret PLACE_YOUR_AUTH0_CLIENT_SECRET
-```
-
-And create the `session_cookie_secret` by generating a value [here](https://generate-secret.now.sh/32) and running:
-
-```
-now secrets add session_cookie_secret PLACE_YOUR_SESSION_COOKIE_SECRET
-```
-
-## About this sample
-
-This sample tries to cover a few topics:
-
-- Signing in
-- Signing out
-- Loading the user on the server side and adding it as part of SSR (`/pages/advanced/ssr-profile.js`)
-- Loading the user on the client side and using fast/cached SSR pages (`/pages/index.js`)
-- API Routes which can load the current user (`/pages/api/me.js`)
-- Using hooks to make the user available throughout the application (`/lib/user.js`)
