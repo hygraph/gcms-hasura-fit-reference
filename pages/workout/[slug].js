@@ -12,13 +12,13 @@ const Slug = ({ workout }) => {
     <Layout user={user} loading={loading}>
       <div className="flex flex-wrap justify-center">
         <section className="flex flex-wrap w-full">
-          <header className="warmup w-full text-gray-200 px-4 py-2">
+          <header className="w-full px-4 py-2 text-gray-200 warmup">
             <h1>Warmup</h1>
           </header>
           <Movement movement={warmup} />
         </section>
         <section className="flex flex-wrap">
-          <header className="brand-gradient w-full text-gray-200 px-4 py-2 flex justify-between">
+          <header className="flex justify-between w-full px-4 py-2 text-gray-200 brand-gradient">
             <h1>Workout</h1>
             <p>{program[0].repetitions} Rounds</p>
           </header>
@@ -28,16 +28,16 @@ const Slug = ({ workout }) => {
           })}
         </section>
         <section className="flex flex-wrap w-full">
-          <header className="cooldown w-full text-gray-200 px-4 py-2">
+          <header className="w-full px-4 py-2 text-gray-200 cooldown">
             <h1>Cool Down</h1>
           </header>
           <Movement movement={coolDown} />
         </section>
         <button
-          className="bg-woodsmoke-700 rounded-full text-4xl px-6 py-2 font-bold text-gray-200 my-4 shadow-xl w-3/4"
+          className="w-3/4 px-6 py-2 my-4 text-4xl font-bold text-gray-200 rounded-full shadow-xl bg-woodsmoke-700"
           onClick={async () => {
             const resp = await fetch(
-              `http://localhost:3000/api/log/${workout.slug}`
+              `${process.env.POST_LOGOUT_REDIRECT_URI}/api/log/${workout.slug}`
             );
           }}
         >
