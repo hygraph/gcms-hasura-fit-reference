@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Layout from "../../components/layout";
 import { useFetchUser } from "../../lib/user";
 import auth0 from "../../lib/auth0";
@@ -5,6 +7,8 @@ import Movement from "../../components/Movement";
 
 const Slug = ({ workout }) => {
   const { user, loading } = useFetchUser();
+
+  const [buttonMessage, setButtonMessage] = useState("Done");
 
   const { warmup, program, coolDown } = workout;
 
@@ -36,12 +40,13 @@ const Slug = ({ workout }) => {
         <button
           className="w-3/4 px-6 py-2 my-4 text-4xl font-bold text-gray-200 rounded-full shadow-xl bg-woodsmoke-700"
           onClick={async () => {
-            const resp = await fetch(
-              `${process.env.POST_LOGOUT_REDIRECT_URI}/api/log/${workout.slug}`
-            );
+            const resp = await fetch(`/api/log/${workout.slug}`);
+            if (resp.status === 200) {
+              setButtonMessage("Log Again?");
+            }
           }}
         >
-          Done
+          {buttonMessage}
         </button>
       </div>
     </Layout>
