@@ -8,6 +8,9 @@ The most important reason why we chose GraphCMS is because the author works ther
 
 GraphCMS also lets us have a content editing backend where our theoretical marketing team would be able to update the product info (our product being workout programs) and be able to update our application’s content without needing the traditional heightened access controls like accessing a user database would entail.
 
+![](images/graphcms-editor.png)
+![](images/graphcms-union-types.png)
+
 This is our separation of concerns between Hasura and GraphCMS - Hasura handles our user data and GraphCMS handles our product data.
 
 The last reason we are using GraphCMS, and one of the core USPs of GraphCMS, is that it supports GraphQL mutations as well! This means that we can write data back into our content model. This is helpful because from our application data hooks, whenever a user completes a workout, we are able to simply update an integer of “popularity” on one of our workout programs so that we have a pre-compiled analytics for sorting these workouts later without the need to worry about secure and costly aggregation of our entire user database when our front-end team simply wants to sort which workouts are the most popular.
