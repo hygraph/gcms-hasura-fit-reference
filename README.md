@@ -11,8 +11,13 @@ The content is split between two domains of responsibility, the editorial influe
 The second domain is our user data and permision logic. That we will host in [Hasura](https://hasrua.io). The magic occurs when we add our GraphCMS API into Hasura's Remote Schema setting and use remote joins to connect the two together. This gives us a unified graph of our content and user data with authenticated controls in place!
 
 ## Running this Project Locally
+
 Because of the various moving parts, you won't be able to run this demo locally as it requires a number of services to be connected. We'll be posting a full tutorial series on recreating this project which we'll announce on Twitter (@GraphCMS) and update here when it ships.
 
 ## The Demo
+
 Enjoy the Demo here: https://gcms-hasura-fit-reference.vercel.app
 
+## The Guide
+
+[You can find the comprehensive guide behind the demo here.](guide/index.md)
