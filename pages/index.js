@@ -11,19 +11,19 @@ function Home({ workouts }) {
       {loading && <p>Loading login info...</p>}
 
       {!user && (
-        <article className="h-64 shadow-lg p-4 flex flex-wrap items-end mb-4 rounded-lg hover:box overflow-hidden brand-gradient">
-          <h1 className="uppercase font-bold text-6xl text-gray-200 w-full leading-tight">
+        <article className="flex flex-wrap items-end h-64 p-4 mb-4 overflow-hidden rounded-lg shadow-lg hover:box brand-gradient">
+          <h1 className="w-full text-6xl font-bold leading-tight text-gray-200 uppercase">
             Sign Up Today!
           </h1>
           <div className="flex justify-end w-full">
             <a
               href="/api/login"
-              className="rounded-full shadow-xl bg-woodsmoke-800 py-2 px-4 font-bold mr-2 text-gray-200"
+              className="px-4 py-2 mr-2 font-bold text-gray-200 rounded-full shadow-xl bg-woodsmoke-800"
             >
               Let's Go!
             </a>
             <a
-              className="rounded-full shadow-xl border border-woodsmoke-800 py-2 px-4 font-bold "
+              className="px-4 py-2 font-bold border rounded-full shadow-xl border-woodsmoke-800 "
               href="/api/login"
             >
               Login
@@ -35,7 +35,7 @@ function Home({ workouts }) {
       {workouts.map((workout, i) => {
         return (
           <article
-            className="h-64 shadow-lg p-4 flex flex-wrap items-end mb-4 rounded-lg overflow-hidden"
+            className="flex flex-wrap items-end h-64 p-4 mb-4 overflow-hidden rounded-lg shadow-lg"
             style={{
               backgroundImage: `linear-gradient(rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,1) 100%), url(${workout.image.url})`,
               backgroundSize: "cover",
@@ -43,12 +43,12 @@ function Home({ workouts }) {
             }}
             key={i}
           >
-            <h1 className="uppercase font-bold text-4xl text-gray-200 w-full leading-tight">
+            <h1 className="w-full text-4xl font-bold leading-tight text-gray-200 uppercase">
               {workout.title}
             </h1>
             {user && (
               <Link href="/workout/[slug]" as={`/workout/${workout.slug}`}>
-                <a className="rounded-full shadow-xl brand-gradient py-2 px-4 font-bold ml-auto text-gray-200">
+                <a className="px-4 py-2 ml-auto font-bold text-gray-200 rounded-full shadow-xl brand-gradient">
                   Let's Go!
                 </a>
               </Link>
